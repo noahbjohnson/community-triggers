@@ -1,0 +1,6 @@
+{
+  "name": "Update Slack Status",
+  "description": "Updates your slack status when you join a room.",
+  "platforms": ["macos"],
+  "language": "applescript"
+}

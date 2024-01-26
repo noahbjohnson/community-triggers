@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+TARGET_FILE="$HOME/Library/Script Libraries/Slack.scptd"
+TARGET_DIR="$HOME/Library/Script Libraries"
+SLACK_FILE="$HOME/.tuple/triggers/update-slack-status/Slack.scptd"
+
+if [ -d "$TARGET_DIR" ]; then
+    echo "$TARGET_DIR exists."
+else
+    echo "$TARGET_DIR does not exist. creating..."
+	mkdir "$TARGET_DIR"
+fi
+
+if [ -d "$TARGET_FILE" ]; then
+    echo "$TARGET_FILE exists."
+else 
+    echo "$TARGET_FILE does not exist. copying..."
+	cp -R "$SLACK_FILE" "$TARGET_FILE"
+fi
+
+
+if [ "$TUPLE_TRIGGER_IS_SELF" = "true" ]; then
+osascript <<END
+tell script "Slack"
+	set status "in tuple room: $TUPLE_TRIGGER_ROOM_NAME" with icon ":code_hard:"
+end tell
+END
+fi
